@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Based on AUR package by Rémi Saurel, patadune@gmail.com, and Matthew Longley randomticktock@gmail.com
+
 # Disable various shellcheck rules that produce false positives in this file.
 # Repository rules should be added to the .shellcheckrc file located in the
 # repository root directory, see https://github.com/koalaman/shellcheck/wiki
@@ -10,39 +12,40 @@
 # [FixMe]: Namcap warnings and errors
 # [FixMe]: Why can't I generated sha512sums?
 
-# Maintainer: Ross Clark <archiv8@artisteducator.com>
-# Contributor: Ross Clark <archiv8@artisteducator.com>
+# Maintainer: Ross Clark <https://github.com/Archiv8/javacc/discussions>
+# Contributor: Ross Clark <https://github.com/Archiv8/javacc/discussions>
 
-# Based on AUR package by Rémi Saurel, patadune@gmail.com, and Matthew Longley randomticktock@gmail.com
+
 
 pkgname=javacc
-pkgver=7.0.10
+pkgver=7.0.12
 pkgrel=1
 pkgdesc="Parser/scanner generator for Java"
-arch=('any')
+arch=("any")
 url="http://javacc.org/"
-license=('BSD')
+license=("BSD")
 depends=(
-    'java-environment'
-    'apache-ant'
+    "java-environment"
+    "apache-ant"
 )
 makedepends=(
-    'git'
+    "git"
 )
 source=(
-    "git+https://github.com/javacc/javacc.git#tag=javacc-$pkgver"
+    "https://github.com/$pkgname/$pkgname/archive/refs/tags/$pkgname-$pkgver.tar.gz"
 )
 sha512sums=(
-    "SKIP"
+    "ed975a1cd5a39d130ca63cce9e02fcdb91eadc35f9dd65b8a668d4dad009ada83c2ac0c34e73c11c92798683d9a1538237d10233337558823c7a2d12f8bb3c91"
 )
 
 build() {
-    cd $srcdir/$pkgname
+    ls -al 
+    cd "$srcdir/$pkgname-$pkgname-$pkgver"
     ant
 }
 
 package() {
-    cd $srcdir/$pkgname
+    cd "$srcdir/$pkgname-$pkgname-$pkgver"
 
     install -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
     mkdir -m755 -p "$pkgdir/usr/share/java/$pkgname/bin" "$pkgdir/usr/bin"
